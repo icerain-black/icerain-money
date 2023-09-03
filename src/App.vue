@@ -6,7 +6,7 @@
 
 <script  lang="ts">
 export default {
-  name:"App"
+  name: "App"
 }
 
 </script>
@@ -15,5 +15,14 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
