@@ -12,17 +12,12 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-}
+@import "~@/assets/style/reset.scss";
+@import "~@/assets/style/helper.scss";
 
 body {
   line-height: 1.5;
+  font-family: $font-hei;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
 </style>
