@@ -9,3 +9,11 @@ a {
   color: inherit;
 }
 
+ul,ol {
+  list-style: none;
+}
+
+//所有button和input设置为字体继承
+button,input{
+  font: inherit;
+}
