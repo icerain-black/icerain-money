@@ -1,28 +1,64 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">{{ output }}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>清空</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
+      <button @click="inputNumber">1</button>
+      <button @click="inputNumber">2</button>
+      <button @click="inputNumber">3</button>
+      <button @click="remove">删除</button>
+      <button @click="inputNumber">4</button>
+      <button @click="inputNumber">5</button>
+      <button @click="inputNumber">6</button>
+      <button @click="clear">清空</button>
+      <button @click="inputNumber">7</button>
+      <button @click="inputNumber">8</button>
+      <button @click="inputNumber">9</button>
       <button class="OK">OK</button>
-      <button class="zero">0</button>
-      <button>.</button>
+      <button @click="inputNumber" class="zero">0</button>
+      <button @click="inputNumber">.</button>
     </div>
   </div>
 </template>
   
 <script lang='ts'>
-export default {
-  name: "NumberPad"
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+
+@Component
+export default class NumberPad extends Vue {
+  output = "0";
+
+  inputNumber($event: MouseEvent) {
+    let button = ($event.target as HTMLButtonElement);
+    let input = button.textContent as string;
+
+    if (this.output.length >= 16) { return; }
+
+    if (this.output === "0") {
+      if ("0123456789".indexOf(input) >= 0) {
+        this.output = input;
+      } else {
+        this.output += input;
+      }
+      return;
+    }
+
+    if (this.output.indexOf(".") >= 0 && input === ".") { return; }
+
+    this.output += input;
+  }
+
+  clear(){
+    this.output = "0"
+  }
+
+  remove(){
+    if (this.output.length === 1) {
+      this.output = "0"
+    }else{
+      this.output = this.output.slice(0,-1)
+    }
+  }
 }
 </script>
   
@@ -36,6 +72,7 @@ export default {
     font-family: Consolas monospace;
     padding: 9px 16px;
     text-align: right;
+    min-height: 72px
   }
 
   >.buttons {
@@ -91,4 +128,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
