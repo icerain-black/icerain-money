@@ -3,7 +3,7 @@
     <NumberPad/>
     <Types/>
     <Notes/>
-    <Tags/>
+    <Tags :dataSourse="dataSourse" @updateTags="updateTags"/>
   </Layout>
 </template>
   
@@ -13,14 +13,22 @@ import Notes from "@/components/Money/Notes.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
+import Vue from "vue"
+import { Component} from 'vue-property-decorator';
 
-export default {
-  name: "Money",
+@Component({
   components:{
     NumberPad,
     Notes,
     Tags,
     Types
+  }
+})
+export default class Money extends Vue{
+  dataSourse = ["衣","食","住","行"]
+
+  updateTags(tag:string){
+    this.dataSourse.push(tag)
   }
 }
 </script>

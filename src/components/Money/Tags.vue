@@ -1,20 +1,46 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for="tag in dataSourse" 
+      @click="tagToggle(tag)"
+      :class="{selected:selectedTags.indexOf(tag)>=0}"
+      >
+        {{ tag }}
+      </li>
     </ul>
     <div class="new">
-      <button class="add-tag">新增标签</button>
+      <button class="add-tag" @click="addTag">新增标签</button>
     </div>
   </div>
 </template>
   
 <script lang='ts'>
-export default {
-  name: "Tags"
+import Vue from 'vue';
+import { Component,Prop } from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop(Array)readonly dataSourse : string[] | undefined;
+  selectedTags:string[] = [];
+
+  //改变Tag选中状态
+  tagToggle(tag:string){
+    let index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index,1)
+    }else{
+      this.selectedTags.push(tag)
+    }
+  }
+
+  addTag(){
+    let name = prompt("请添加标签");
+    if (name === "" || name === null) {
+      return
+    }
+    this.$emit("updateTags",name)
+    
+  }
 }
 </script>
   
@@ -38,6 +64,10 @@ export default {
       padding: 0 16px;
       margin-right: 16px;
       margin-top: 6px;
+      &.selected{
+        background-color: red;
+        color: white;
+      }
     }
   }
 
