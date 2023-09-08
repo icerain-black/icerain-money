@@ -38,8 +38,10 @@ export default class NumberPad extends Vue {
     let button = ($event.target as HTMLButtonElement);
     let input = button.textContent as string;
 
+    //限制数值长度
     if (this.output.length >= 16) { return; }
 
+    //初始值判断
     if (this.output === "0") {
       if ("0123456789".indexOf(input) >= 0) {
         this.output = input;
@@ -49,9 +51,17 @@ export default class NumberPad extends Vue {
       return;
     }
 
+    //检查是否有两个小数点
     if (this.output.indexOf(".") >= 0 && input === ".") { return; }
 
-    this.output += input;
+    //限制小数点后两位
+    if (this.output.indexOf(".") >= 0) {
+      let pointIndex = this.output.indexOf(".")
+      let inputcache = this.output + input;
+      this.output = inputcache.slice(0,pointIndex+3)
+    }else{
+      this.output += input;
+    }
   }
 
   clear(){
