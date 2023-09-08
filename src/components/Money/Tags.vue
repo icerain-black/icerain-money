@@ -23,22 +23,22 @@ export default class Tags extends Vue {
   @Prop(Array)readonly dataSourse : string[] | undefined;
   selectedTags:string[] = [];
 
-  //改变Tag选中状态
   tagToggle(tag:string){
     let index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
-      this.selectedTags.splice(index,1)
+      this.selectedTags.splice(index,1);
     }else{
-      this.selectedTags.push(tag)
+      this.selectedTags.push(tag);
     }
+    this.$emit("update:value",this.selectedTags);
   }
 
   addTag(){
     let name = prompt("请添加标签");
     if (name === "" || name === null) {
-      return
+      return;
     }
-    this.$emit("updateTags",name)
+    this.$emit("updateTags",name);
     
   }
 }
