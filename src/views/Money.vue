@@ -16,13 +16,7 @@ import Notes from "@/components/Money/Notes.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
-type Record = {
-  tags:string[],
-  notes:string,
-  type:"-"|"+",
-  amonut:number,
-  createdTime:Date
-}
+import module from "@/module"
 
 @Component({
   components:{
@@ -35,9 +29,9 @@ type Record = {
 export default class Money extends Vue{
   dataSourse = ["衣","食","住","行"]
 
-  recordList:Record[] = JSON.parse(window.localStorage.getItem("recordList") || "[]");
+  recordList= module.getRecordList();
 
-  record:Record = {
+  record:Recordltem = {
     tags:[],
     notes:"",
     type:"-",
@@ -72,7 +66,7 @@ export default class Money extends Vue{
 
   @Watch("recordList")
   onRecordListChange(){
-    window.localStorage.setItem("recordList",JSON.stringify(this.recordList));
+    module.saveRecordList(this.recordList);
   }
 
 }
