@@ -77,10 +77,12 @@ export default class NumberPad extends Vue {
   }
 
   amountSubmit(){
-    this.$emit("update:value",this.output)
-    this.$emit("submit")
+    if (this.output !== "0") {
+      this.$emit("update:value",this.output)
+      this.$emit("submit")
 
-    this.output = "0"
+      this.output = "0"  
+    }
   }
 }
 </script>
