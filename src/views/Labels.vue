@@ -1,8 +1,8 @@
 <template>
   <Layout>
     <ol class="tags">
-      <li v-for="(tag,index) in tagList" :key="index">
-        <span>{{ tag }}</span>
+      <li v-for="(tag,index) in tagList" :key="tag.id">
+        <span>{{ tag.name }}</span>
         <Icon name="icon-arrow-right"></Icon>
       </li>
     </ol>
@@ -27,7 +27,7 @@ export default class Labels extends Vue {
   addTag(){
     let tagName = prompt("请输入添加的标签名");
     if (tagName) {
-      let message = tagListModule.create(tagName);
+      let message = tagListModule.create({id:tagName,name:tagName});
       if (message === "duplication") {
         alert("标签重复！");
         return;

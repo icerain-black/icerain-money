@@ -1,13 +1,17 @@
 const itemKey = "tagList"
 
+
+
 let tagListModule:tagList = {
   data:[],
   fetch(){
-    this.data = JSON.parse(window.localStorage.getItem(itemKey) || "[]") as string[];
+    this.data = JSON.parse(window.localStorage.getItem(itemKey) || "[]") as tagData[];
     return this.data
   },
-  create(tag:string){
-    if (this.data.indexOf(tag) >= 0) {
+  create(tag:tagData){
+    let names = this.data.map(item => item.name)
+
+    if (names.indexOf(tag.name) >= 0) {
       return "duplication"
     }
     this.data = this.fetch()

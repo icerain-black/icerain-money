@@ -2,11 +2,11 @@
   <div class="tags">
     <ul class="current">
       <li v-for="(tag,index) in tagList" 
-      @click="tagToggle(tag)"
-      :class="{selected:selectedTags.indexOf(tag)>=0}"
+      @click="tagToggle(tag.name)"
+      :class="{selected:selectedTags.indexOf(tag.name)>=0}"
       :key="index"
       >
-        {{ tag }}
+        {{ tag.name }}
       </li>
     </ul>
     <div class="new">
@@ -21,7 +21,7 @@ import { Component,Prop } from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array)readonly tagList : string[] | undefined;
+  @Prop(Array)readonly tagList : tagData[] | undefined;
   selectedTags:string[] = [];
 
   tagToggle(tag:string){

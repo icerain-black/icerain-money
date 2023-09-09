@@ -6,9 +6,14 @@ type Recordltem = {
   createdTime:Date
 }
 
+type tagData = {
+  id:string,
+  name:string
+}
+
 type tagList = {
-  data:string[];
-  fetch:() => string[];
-  create:(tag:string) => "success" | "duplication";
+  data:tagData[];
+  fetch:() => tagData[];
+  create:(tag:tagData) => "success" | "duplication";
   save:() => void;
 }
