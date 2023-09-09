@@ -30,12 +30,13 @@ const routes: Array<RouteConfig> = [
     component:Statistics
   },
   {
-    path:"/editlabel",
+    path:"/labels/edit/:id",
     name:"editlabel",
     component:EditLabel
   },
   {
     path:"*",
+    name:"404",
     component:NotFound
   }
 
