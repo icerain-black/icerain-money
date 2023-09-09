@@ -1,9 +1,10 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in dataSourse" 
+      <li v-for="(tag,index) in tagList" 
       @click="tagToggle(tag)"
       :class="{selected:selectedTags.indexOf(tag)>=0}"
+      :key="index"
       >
         {{ tag }}
       </li>
@@ -20,7 +21,7 @@ import { Component,Prop } from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array)readonly dataSourse : string[] | undefined;
+  @Prop(Array)readonly tagList : string[] | undefined;
   selectedTags:string[] = [];
 
   tagToggle(tag:string){
@@ -39,12 +40,12 @@ export default class Tags extends Vue {
       return;
     }
     this.$emit("updateTags",name);
-    
   }
 }
 </script>
   
 <style lang="scss" scoped>
+@use "sass:math";
 .tags {
   font-size: 14px;
   padding: 16px;
@@ -58,7 +59,7 @@ export default class Tags extends Vue {
       $h: 24px;
 
       height: $h;
-      border-radius: $h / 2;
+      border-radius: math.div($h, 2);
       line-height: $h;
       background-color: #d9d9d9;
       padding: 0 16px;

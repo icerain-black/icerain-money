@@ -3,7 +3,7 @@
     <NumberPad :amout="record.amonut" @update:value="updateAmount" @submit="recordListSubmit"/>
     <Types :type="record.type" @update:value="updateTypes"/>
     <Notes @update:value="updateNotes"/>
-    <Tags :dataSourse="dataSourse" @updateTags="updateTags" @update:value="updateSelectedTags"/>
+    <Tags :tagList="tagList" @updateTags="updateTags" @update:value="updateSelectedTags"/>
   </Layout>
 </template>
   
@@ -16,7 +16,9 @@ import Notes from "@/components/Money/Notes.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
-import module from "@/module"
+import recordListModule from "@/modules/recordListModule"
+import tagListModule from "@/modules/tagListModule";
+
 
 @Component({
   components:{
@@ -27,9 +29,9 @@ import module from "@/module"
   }
 })
 export default class Money extends Vue{
-  dataSourse = ["衣","食","住","行"]
+  tagList = tagListModule.fetch();
 
-  recordList= module.getRecordList();
+  recordList = recordListModule.fetch();
 
   record:Recordltem = {
     tags:[],
@@ -39,8 +41,13 @@ export default class Money extends Vue{
     createdTime:new Date()
   }
 
-  updateTags(tag:string){
-    this.dataSourse.push(tag);
+  updateTags(tagName:string){
+    let message = tagListModule.create(tagName);
+    if (message === "duplication") {
+      alert("标签重复！");
+      return;
+    }
+    this.tagList = tagListModule.fetch();
   }
 
   updateSelectedTags(tags:string[]){
@@ -66,7 +73,7 @@ export default class Money extends Vue{
 
   @Watch("recordList")
   onRecordListChange(){
-    module.saveRecordList(this.recordList);
+    recordListModule.save(this.recordList);
   }
 
 }

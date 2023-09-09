@@ -1,13 +1,13 @@
 const itemKey = "recordList"
 
-let model = {
-  getRecordList(){
+let recordListModule = {
+  fetch(){
     return JSON.parse(window.localStorage.getItem(itemKey) || "[]") as Recordltem[];
   },
 
-  saveRecordList(data:Recordltem[]){
+  save(data:Recordltem[]){
     window.localStorage.setItem(itemKey,JSON.stringify(data));
   }
 }
 
-export default model;
+export default recordListModule;
