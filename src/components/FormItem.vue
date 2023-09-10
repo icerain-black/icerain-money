@@ -1,27 +1,31 @@
 <template>
-  <div class="notes">
-    <label>备注
-      <input type="text" v-model="notesText" @input="updateNotes"  placeholder="在这里添加备注">
+  <div class="FormItem">
+    <label>{{ title }}
+      <input type="text" v-model="notesText" @input="updateNotes"  :placeholder="tip">
     </label>
   </div>
 </template>
   
 <script lang='ts'>
 import Vue from 'vue';
-import { Component} from 'vue-property-decorator';
+import { Component,Prop} from 'vue-property-decorator';
 
 @Component
-export default class Notes extends Vue {
+export default class FormItem extends Vue {
+  @Prop({type:String,default:"字段名"}) title!:string;
+  @Prop({type:String,default:"提示字段"}) tip!:string;
+
   notesText = ""
 
   updateNotes(){
     this.$emit("update:value",this.notesText)
+    console.log(this)
   }
 }
 </script>
   
 <style lang="scss" scoped>
-.notes {
+.FormItem {
   >label {
     display: flex;
     background-color: #f5f5f5;

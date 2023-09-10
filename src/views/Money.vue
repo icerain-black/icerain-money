@@ -2,7 +2,8 @@
   <Layout class-prefix="layout">
     <NumberPad :amout="record.amonut" @update:value="updateAmount" @submit="recordListSubmit"/>
     <Types :type="record.type" @update:value="updateTypes"/>
-    <Notes @update:value="updateNotes"/>
+    <FormItem title="备注" tip="请输入备注" @update:value="updateNotes"/>
+
     <Tags :tagList="tagList" @updateTags="updateTags" @update:value="updateSelectedTags"/>
   </Layout>
 </template>
@@ -12,7 +13,7 @@ import Vue from "vue"
 import { Component,Watch} from 'vue-property-decorator';
 
 import NumberPad from "@/components/Money/NumberPad.vue"
-import Notes from "@/components/Money/Notes.vue"
+import FormItem from "@/components/FormItem.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
@@ -23,7 +24,7 @@ import tagListModule from "@/modules/tagListModule";
 @Component({
   components:{
     NumberPad,
-    Notes,
+    FormItem,
     Tags,
     Types
   }
