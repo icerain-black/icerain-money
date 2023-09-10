@@ -2,8 +2,9 @@
   <Layout class-prefix="layout">
     <NumberPad :amout="record.amonut" @update:value="updateAmount" @submit="recordListSubmit"/>
     <Types :type="record.type" @update:value="updateTypes"/>
-    <FormItem title="备注" tip="请输入备注" @update:value="updateNotes"/>
-
+    <div class="formItem-wapper">
+      <FormItem title="备注" tip="请输入备注" @update:value="updateNotes"/>
+    </div>
     <Tags :tagList="tagList" @updateTags="updateTags" @update:value="updateSelectedTags"/>
   </Layout>
 </template>
@@ -84,5 +85,9 @@ export default class Money extends Vue{
   .layout-content{
     display: flex;
     flex-direction: column-reverse;
+  }
+
+  .formItem-wapper{
+    padding: 12px 0;
   }
 </style>

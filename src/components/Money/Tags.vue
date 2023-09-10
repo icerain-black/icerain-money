@@ -1,5 +1,8 @@
 <template>
   <div class="tags">
+    <div class="new">
+      <button class="add-tag" @click="addTag">新增标签</button>
+    </div>
     <ul class="current">
       <li v-for="(tag,index) in tagList" 
       @click="tagToggle(tag.name)"
@@ -9,9 +12,6 @@
         {{ tag.name }}
       </li>
     </ul>
-    <div class="new">
-      <button class="add-tag" @click="addTag">新增标签</button>
-    </div>
   </div>
 </template>
   
@@ -49,7 +49,10 @@ export default class Tags extends Vue {
 .tags {
   font-size: 14px;
   padding: 16px;
-
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column-reverse;
+  background-color: white;
   >.current {
     display: flex;
     font-size: 14px;

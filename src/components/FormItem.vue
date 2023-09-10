@@ -1,6 +1,6 @@
 <template>
   <div class="FormItem">
-    <label>{{ title }}
+    <label :style="`background-color:${backgroundColor}`">{{ title }}
       <input type="text" v-model="notesText" @input="updateNotes"  :placeholder="tip">
     </label>
   </div>
@@ -14,6 +14,7 @@ import { Component,Prop} from 'vue-property-decorator';
 export default class FormItem extends Vue {
   @Prop({type:String,default:"字段名"}) title!:string;
   @Prop({type:String,default:"提示字段"}) tip!:string;
+  @Prop({default:"#f5f5f5"}) backgroundColor!:string;
 
   notesText = ""
 
@@ -28,7 +29,7 @@ export default class FormItem extends Vue {
 .FormItem {
   >label {
     display: flex;
-    background-color: #f5f5f5;
+    background-color: white;
     align-items: center;
     padding-left: 16px;
     font-size: 14px;
@@ -40,7 +41,7 @@ export default class FormItem extends Vue {
       border: none;
       color: #999999;
       flex-grow: 1;
-      line-height: 60px;
+      line-height: 40px;
       padding-right: 16px;
 
       &:focus {
