@@ -24,6 +24,9 @@ button{
   border: none;
   height: 40px;
   padding: 0 16px;
+  margin-right: 16px;
+  box-sizing: border-box;
+  min-width: 96px;
 }
   
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="FormItem">
     <label :style="`background-color:${backgroundColor}`">{{ title }}
-      <input type="text" :value="value" @input="updateNotes($event.target.value)"  :placeholder="tip">
+      <input type="text" :value="value" @input="updateTag($event.target.value)"  :placeholder="tip">
     </label>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default class FormItem extends Vue {
   @Prop({type:String,default:"提示字段"}) tip!:string;
   @Prop({default:"#f5f5f5"}) backgroundColor!:string;
 
-  updateNotes(value:string){
+  updateTag(value:string){
     this.$emit("update:value",value)
   }
 }

@@ -8,6 +8,7 @@
       </div>
       <FormItem :value="tag.name" @update:value="changeTagName" backgroundColor="white" title="标签名" tip="请输入更改后的标签名" />
       <div class="button-wapper">
+        <DefaultButton @click="saveTag">保存</DefaultButton>
         <DefaultButton @click="deleteTag">删除标签</DefaultButton>
       </div>
     </div>
@@ -32,6 +33,7 @@ import tagListModule from "@/modules/tagListModule";
 })
 export default class EditLable extends Vue {
   tag:tagData = {id:"null",name:"null"};
+  tagName = this.tag.name;
 
   created() {
     const taglist = tagListModule.fetch();
@@ -46,7 +48,11 @@ export default class EditLable extends Vue {
   }
 
   changeTagName(tagName:string){
-    tagListModule.updata(this.tag.id,tagName);
+    this.tagName = tagName
+  }
+
+  saveTag(){
+    tagListModule.updata(this.tag.id,this.tagName);
   }
 
   deleteTag(){
