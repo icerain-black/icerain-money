@@ -1,7 +1,7 @@
 <template>
   <div class="FormItem">
     <label :style="`background-color:${backgroundColor}`">{{ title }}
-      <input type="text" v-model="notesText" @input="updateNotes"  :placeholder="tip">
+      <input type="text" :value="value" @input="updateNotes($event.target.value)"  :placeholder="tip">
     </label>
   </div>
 </template>
@@ -12,15 +12,13 @@ import { Component,Prop} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
+  @Prop({type:String}) value!:string;
   @Prop({type:String,default:"字段名"}) title!:string;
   @Prop({type:String,default:"提示字段"}) tip!:string;
   @Prop({default:"#f5f5f5"}) backgroundColor!:string;
 
-  notesText = ""
-
-  updateNotes(){
-    this.$emit("update:value",this.notesText)
-    console.log(this)
+  updateNotes(value:string){
+    this.$emit("update:value",value)
   }
 }
 </script>

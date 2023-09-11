@@ -2,13 +2,13 @@
   <Layout>
     <div class="EditLabel">
       <div class="navBar">
-        <Icon class="left-icon" name="icon-arrow-left"></Icon>
+        <Icon @click="toLabelPage" class="left-icon" name="icon-arrow-left"></Icon>
         <span>编辑标签</span>
         <span class="right-icon"></span>
       </div>
-      <FormItem backgroundColor="white" title="标签名" tip="请输入更改后的标签名" />
+      <FormItem :value="tag.name" @update:value="changeTagName" backgroundColor="white" title="标签名" tip="请输入更改后的标签名" />
       <div class="button-wapper">
-        <DefaultButton>删除标签</DefaultButton>
+        <DefaultButton @click="deleteTag">删除标签</DefaultButton>
       </div>
     </div>
   </Layout>
@@ -31,14 +31,31 @@ import tagListModule from "@/modules/tagListModule";
   }
 })
 export default class EditLable extends Vue {
+  tag:tagData = {id:"null",name:"null"};
+
   created() {
-    let tagList = tagListModule.fetch();
-    let tag = tagList.filter(item => item.id === this.$route.params.id)[0]
-    if (!tag) {
+    const taglist = tagListModule.fetch();
+    const tag = taglist.filter(item => item.id === this.$route.params.id)[0];
+    if (tag.name !== "null") {
+      this.tag = tag
+    }else{
       this.$router.replace({
         name: "404"
       })
     }
+  }
+
+  changeTagName(tagName:string){
+    tagListModule.updata(this.tag.id,tagName);
+  }
+
+  deleteTag(){
+    tagListModule.remove(this.tag.id);
+    this.$router.replace("/labels")
+  }
+
+  toLabelPage(){
+    this.$router.push("/labels")
   }
 }
 </script>
