@@ -1,16 +1,20 @@
+import createId from "@/tools/createId"
+
 const itemKey = "tagList"
 
 let tagListModule:tagList = {
   data:[],
 
-  create(tag:tagData){
-    let id = this.data.map(item => item.id);
-
-    if (id.indexOf(tag.id) >= 0) {
+  create(name:string){
+    this.data = this.fetch();
+    if (this.data.find(item => item.name === name)) {
       return "duplication";
     }
-    this.data = this.fetch();
-    this.data.push(tag);
+
+    this.data.push({
+      id:createId(),
+      name
+    });
     this.save();
     return "success";
   },

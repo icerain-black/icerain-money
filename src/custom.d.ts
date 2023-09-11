@@ -14,7 +14,7 @@ type tagData = {
 type tagList = {
   data:tagData[];
   fetch:() => tagData[];
-  create:(tag:tagData) => "success" | "duplication";
+  create:(tagName:string) => "success" | "duplication";
   save:() => void;
   updata:(id:string,name:string) => void;
   remove:(id:string) => void;

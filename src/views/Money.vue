@@ -44,7 +44,7 @@ export default class Money extends Vue{
   }
 
   updateTags(tagName:string){
-    let message = tagListModule.create({id:tagName,name:tagName});
+    let message = tagListModule.create(tagName);
     if (message === "duplication") {
       alert("标签重复！");
       return;
@@ -53,6 +53,7 @@ export default class Money extends Vue{
   }
 
   updateSelectedTags(tags:string[]){
+    console.log(tags)
     this.record.tags = tags;
   }
 

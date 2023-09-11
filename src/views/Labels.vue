@@ -30,7 +30,7 @@ export default class Labels extends Vue {
   addTag(){
     let tagName = prompt("请输入添加的标签名");
     if (tagName) {
-      let message = tagListModule.create({id:tagName,name:tagName});
+      let message = tagListModule.create(tagName);
       if (message === "duplication") {
         alert("标签重复！");
         return;
