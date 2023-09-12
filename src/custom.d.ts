@@ -17,5 +17,12 @@ type tagList = {
   create:(tagName:string) => "success" | "duplication";
   save:() => void;
   updata:(id:string,name:string) => void;
-  remove:(id:string) => void;
+  remove:(id:string) => "success" | "fail";
+}
+
+interface Window{
+  tagList:tagData[];
+  createTag:() => void;
+  removeTag:tagList["remove"];
+  updateTag:tagList["updata"];
 }

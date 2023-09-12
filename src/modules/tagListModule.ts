@@ -21,8 +21,13 @@ let tagListModule:tagList = {
 
   remove(id){
     let index = this.data.findIndex(item => item.id === id);
-    this.data.splice(index,1);
-    this.save();
+    if (index >= 0) {
+      this.data.splice(index,1);
+      this.save();
+      return "success";
+    }
+    return "fail"
+
   },
 
   updata(id,newName){

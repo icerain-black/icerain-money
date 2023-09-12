@@ -52,11 +52,12 @@ export default class EditLable extends Vue {
   }
 
   saveTag(){
-    tagListModule.updata(this.tag.id,this.tagName);
+    window.updateTag(this.tag.id,this.tagName);
+    this.toLabelPage()
   }
 
   deleteTag(){
-    tagListModule.remove(this.tag.id);
+    window.removeTag(this.tag.id)
     this.$router.replace("/labels")
   }
 

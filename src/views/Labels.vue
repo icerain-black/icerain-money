@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="tags">
-      <router-link class="tag" v-for="(tag,index) in tagList" :key="tag.id" :to="`/labels/edit/${tag.id}`">
+      <router-link class="tag" v-for="(tag) in tagList" :key="tag.id" :to="`/labels/edit/${tag.id}`">
         <span>{{ tag.name }}</span>
         <Icon name="icon-arrow-right"></Icon>
       </router-link>
@@ -28,15 +28,8 @@ export default class Labels extends Vue {
   tagList = tagListModule.fetch();
 
   addTag(){
-    let tagName = prompt("请输入添加的标签名");
-    if (tagName) {
-      let message = tagListModule.create(tagName);
-      if (message === "duplication") {
-        alert("标签重复！");
-        return;
-      }
-      this.tagList = tagListModule.fetch();
-    }
+    window.createTag()
+    this.tagList = tagListModule.fetch();
   }
 }
 

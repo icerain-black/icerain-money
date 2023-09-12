@@ -11,7 +11,7 @@
   
 <script lang='ts'>
 import Vue from "vue"
-import { Component,Watch} from 'vue-property-decorator';
+import { Component} from 'vue-property-decorator';
 
 import NumberPad from "@/components/Money/NumberPad.vue"
 import FormItem from "@/components/FormItem.vue"
@@ -51,7 +51,6 @@ export default class Money extends Vue{
   }
 
   updateSelectedTags(tags:string[]){
-    console.log(tags)
     this.record.tags = tags;
   }
 
