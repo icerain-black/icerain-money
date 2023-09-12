@@ -18,7 +18,6 @@ import FormItem from "@/components/FormItem.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
-import tagListModule from "@/modules/tagListModule";
 import store2 from "@/store/index2";
 
 
@@ -31,7 +30,7 @@ import store2 from "@/store/index2";
   }
 })
 export default class Money extends Vue{
-  tagList = tagListModule.fetch();
+  tagList = store2.fetchTags();
 
   record:Recordltem = {
     tags:[],
@@ -41,9 +40,9 @@ export default class Money extends Vue{
     createdTime:new Date()
   }
 
-  updateTags(tagName:string){
+  updateTags(){
     store2.createTag();
-    this.tagList = tagListModule.fetch();
+    this.tagList = store2.fetchTags();
   }
 
   updateSelectedTags(tags:string[]){

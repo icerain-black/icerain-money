@@ -22,8 +22,6 @@ import { Component } from 'vue-property-decorator';
 import FormItem from "@/components/FormItem.vue"
 import DefaultButton from "@/components/DefaultButton.vue"
 
-
-import tagListModule from "@/modules/tagListModule";
 import store2 from "@/store/index2";
 
 @Component({
@@ -37,7 +35,7 @@ export default class EditLable extends Vue {
   tagName = this.tag.name;
 
   created() {
-    const taglist = tagListModule.fetch();
+    const taglist = store2.fetchTags();
     const tag = taglist.filter(item => item.id === this.$route.params.id)[0];
     if (tag.name !== "null") {
       this.tag = tag

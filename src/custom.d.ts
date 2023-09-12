@@ -11,19 +11,17 @@ type tagData = {
   name:string
 }
 
-type tagList = {
-  data:tagData[];
-  fetch:() => tagData[];
-  create:(tagName:string) => "success" | "duplication";
-  save:() => void;
-  updata:(id:string,name:string) => void;
-  remove:(id:string) => "success" | "fail";
+type tagListStore = {
+  createTag:() => void;
+  removeTag:(id:string) => "success" | "fail";
+  updateTag:(id:string,name:string) => void;
+  saveTags:() => void;
+  fetchTags:() => tagData[];
 }
 
-interface store2{
-  createTag:() => void;
-  removeTag:tagList["remove"];
-  updateTag:tagList["updata"];
-
+type recordListStore = {
   createRecord:(newRecord:Recordltem) => void;
+  // data:Recordltem[];
+  fetchRecord:() => Recordltem[];
+  saveRecord:() => void;
 }

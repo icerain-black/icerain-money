@@ -15,7 +15,6 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from 'vue-property-decorator';
-import tagListModule from "@/modules/tagListModule";
 
 import DefaultButton from "@/components/DefaultButton.vue"
 import store2 from "@/store/index2";
@@ -26,11 +25,11 @@ import store2 from "@/store/index2";
   }
 })
 export default class Labels extends Vue {
-  tagList = tagListModule.fetch();
+  tagList = store2.fetchTags();
 
   addTag(){
     store2.createTag()
-    this.tagList = tagListModule.fetch();
+    this.tagList = store2.fetchTags();
   }
 }
 
