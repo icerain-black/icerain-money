@@ -24,6 +24,7 @@ import DefaultButton from "@/components/DefaultButton.vue"
 
 
 import tagListModule from "@/modules/tagListModule";
+import store2 from "@/store/index2";
 
 @Component({
   components: {
@@ -52,12 +53,12 @@ export default class EditLable extends Vue {
   }
 
   saveTag(){
-    window.updateTag(this.tag.id,this.tagName);
+    store2.updateTag(this.tag.id,this.tagName);
     this.toLabelPage()
   }
 
   deleteTag(){
-    window.removeTag(this.tag.id)
+    store2.removeTag(this.tag.id)
     this.$router.replace("/labels")
   }
 

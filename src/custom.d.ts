@@ -20,9 +20,10 @@ type tagList = {
   remove:(id:string) => "success" | "fail";
 }
 
-interface Window{
-  tagList:tagData[];
+interface store2{
   createTag:() => void;
   removeTag:tagList["remove"];
   updateTag:tagList["updata"];
+
+  createRecord:(newRecord:Recordltem) => void;
 }

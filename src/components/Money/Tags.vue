@@ -35,10 +35,6 @@ export default class Tags extends Vue {
   }
 
   addTag(){
-    let name = prompt("请添加标签");
-    if (name === "" || name === null) {
-      return;
-    }
     this.$emit("updateTags",name);
   }
 }

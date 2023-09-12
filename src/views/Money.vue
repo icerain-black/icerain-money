@@ -18,8 +18,8 @@ import FormItem from "@/components/FormItem.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
-import recordListModule from "@/modules/recordListModule"
 import tagListModule from "@/modules/tagListModule";
+import store2 from "@/store/index2";
 
 
 @Component({
@@ -42,11 +42,7 @@ export default class Money extends Vue{
   }
 
   updateTags(tagName:string){
-    let message = tagListModule.create(tagName);
-    if (message === "duplication") {
-      alert("标签重复！");
-      return;
-    }
+    store2.createTag();
     this.tagList = tagListModule.fetch();
   }
 
@@ -67,7 +63,7 @@ export default class Money extends Vue{
   }
 
   recordListSubmit(){
-    recordListModule.create(this.record)
+    store2.createRecord(this.record)
   }
 
 }
