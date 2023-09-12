@@ -33,8 +33,6 @@ import tagListModule from "@/modules/tagListModule";
 export default class Money extends Vue{
   tagList = tagListModule.fetch();
 
-  recordList = recordListModule.fetch();
-
   record:Recordltem = {
     tags:[],
     notes:"",
@@ -70,13 +68,7 @@ export default class Money extends Vue{
   }
 
   recordListSubmit(){
-    this.record.createdTime = new Date(Date.now())
-    this.recordList.push(JSON.parse(JSON.stringify(this.record)));
-  }
-
-  @Watch("recordList")
-  onRecordListChange(){
-    recordListModule.save(this.recordList);
+    recordListModule.create(this.record)
   }
 
 }
