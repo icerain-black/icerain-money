@@ -18,19 +18,21 @@ import FormItem from "@/components/FormItem.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
 
-import store2 from "@/store/index2";
-
-
 @Component({
   components:{
     NumberPad,
     FormItem,
     Tags,
     Types
+  },
+  computed:{
+    tagList(){
+      return this.$store.state.tagList;
+    }
   }
 })
 export default class Money extends Vue{
-  tagList = store2.fetchTags();
+  tagList!:tagData[];
 
   record:Recordltem = {
     tags:[],
@@ -41,8 +43,7 @@ export default class Money extends Vue{
   }
 
   updateTags(){
-    store2.createTag();
-    this.tagList = store2.fetchTags();
+    this.$store.commit("createTag");
   }
 
   updateSelectedTags(tags:string[]){
@@ -62,7 +63,7 @@ export default class Money extends Vue{
   }
 
   recordListSubmit(){
-    store2.createRecord(this.record)
+    this.$store.commit("createRecord",this.record)
   }
 
 }

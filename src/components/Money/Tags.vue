@@ -35,7 +35,7 @@ export default class Tags extends Vue {
   }
 
   addTag(){
-    this.$emit("updateTags",name);
+    this.$emit("updateTags");
   }
 }
 </script>

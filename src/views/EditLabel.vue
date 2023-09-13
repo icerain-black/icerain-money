@@ -6,7 +6,7 @@
         <span>编辑标签</span>
         <span class="right-icon"></span>
       </div>
-      <FormItem :value="tag.name" @update:value="changeTagName" backgroundColor="white" title="标签名" tip="请输入更改后的标签名" />
+      <FormItem :value="tag && tag.name" @update:value="changeTagName" backgroundColor="white" title="标签名" tip="请输入更改后的标签名" />
       <div class="button-wapper">
         <DefaultButton @click="saveTag">保存</DefaultButton>
         <DefaultButton @click="deleteTag">删除标签</DefaultButton>
@@ -22,8 +22,6 @@ import { Component } from 'vue-property-decorator';
 import FormItem from "@/components/FormItem.vue"
 import DefaultButton from "@/components/DefaultButton.vue"
 
-import store2 from "@/store/index2";
-
 @Component({
   components: {
     FormItem,
@@ -31,13 +29,14 @@ import store2 from "@/store/index2";
   }
 })
 export default class EditLable extends Vue {
-  tag:tagData = {id:"null",name:"null"};
-  tagName = this.tag.name;
+  tag:tagData|undefined = undefined;
+  tagName = this.tag?.name;
 
   created() {
-    const taglist = store2.fetchTags();
-    const tag = taglist.filter(item => item.id === this.$route.params.id)[0];
-    if (tag.name !== "null") {
+    const tagList:tagData[] = this.$store.state.tagList;
+
+    const tag = tagList.filter(item => item.id === this.$route.params.id)[0];
+    if (tag.name) {
       this.tag = tag
     }else{
       this.$router.replace({
@@ -51,12 +50,15 @@ export default class EditLable extends Vue {
   }
 
   saveTag(){
-    store2.updateTag(this.tag.id,this.tagName);
+    this.$store.commit("updateTag",{
+      id:this.tag?.id,
+      tagName:this.tagName
+    });
     this.toLabelPage()
   }
 
   deleteTag(){
-    store2.removeTag(this.tag.id)
+    this.$store.commit("removeTag",this.tag?.id)
     this.$router.replace("/labels")
   }
 
