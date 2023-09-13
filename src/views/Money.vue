@@ -5,18 +5,20 @@
     <div class="formItem-wapper">
       <FormItem title="备注" tip="请输入备注" @update:value="updateNotes"/>
     </div>
-    <Tags :tagList="tagList" @updateTags="updateTags" @update:value="updateSelectedTags"/>
+    <Tags :tagList="tagList" @addTag="addTag" @update:value="updateSelectedTags"/>
   </Layout>
 </template>
   
 <script lang='ts'>
-import Vue from "vue"
 import { Component} from 'vue-property-decorator';
+import {mixins} from "vue-class-component"
 
 import NumberPad from "@/components/Money/NumberPad.vue"
 import FormItem from "@/components/FormItem.vue"
 import Tags from "@/components/Money/Tags.vue"
 import Types from "@/components/Money/Types.vue"
+
+import TagHelper from "@/mixin/tagHelper";
 
 @Component({
   components:{
@@ -31,7 +33,7 @@ import Types from "@/components/Money/Types.vue"
     }
   }
 })
-export default class Money extends Vue{
+export default class Money extends mixins(TagHelper){
   tagList!:tagData[];
 
   record:Recordltem = {
@@ -40,10 +42,6 @@ export default class Money extends Vue{
     type:"-",
     amonut:0,
     createdTime:new Date()
-  }
-
-  updateTags(){
-    this.$store.commit("createTag");
   }
 
   updateSelectedTags(tags:string[]){

@@ -35,6 +35,7 @@ const store = new Vuex.Store({
         store.commit("fetchTags");
         if (state.tagList.find(item => item.name === tagName)) {
           alert("标签重复！");
+          return;
         }
   
         state.tagList.push({

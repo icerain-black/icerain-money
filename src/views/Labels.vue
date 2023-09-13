@@ -15,8 +15,12 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from 'vue-property-decorator';
+import {mixins} from "vue-class-component"
 
 import DefaultButton from "@/components/DefaultButton.vue"
+
+import TagHelper from "@/mixin/tagHelper";
+
 
 @Component({
   components:{
@@ -28,12 +32,8 @@ import DefaultButton from "@/components/DefaultButton.vue"
     }
   }
 })
-export default class Labels extends Vue {
+export default class Labels extends mixins(TagHelper){
   tagList!:tagData[];
-
-  addTag(){
-    this.$store.commit("createTag")
-  }
 }
 
 </script>
