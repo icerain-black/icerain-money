@@ -27,14 +27,11 @@ import TagHelper from "@/mixin/tagHelper";
     Tags,
     Types
   },
-  computed:{
-    tagList(){
-      return this.$store.state.tagList;
-    }
-  }
 })
 export default class Money extends mixins(TagHelper){
-  tagList!:tagData[];
+  get tagList(){
+      return this.$store.state.tagList;
+  }
 
   record:Recordltem = {
     tags:[],
