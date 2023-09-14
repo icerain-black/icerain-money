@@ -1,16 +1,10 @@
 <template>
   <Layout>
-    <Types :typeDataSourse="recordTypeList" 
-      :initSelectedValue="recordTypeSelectedValue"
-      @update:value="changeRecordType" 
-      classPrefix="record"
-    >
+    <Types :typeDataSourse="recordTypeList" :initSelectedValue="recordTypeSelectedValue" @update:value="changeRecordType"
+      classPrefix="record">
     </Types>
-    <Types :typeDataSourse="intervalTypeList" 
-      :initSelectedValue="intervalTypeSelectedValue"
-      @update:value="changeIntervalType"
-      classPrefix="interval"
-    >
+    <Types :typeDataSourse="intervalTypeList" :initSelectedValue="intervalTypeSelectedValue"
+      @update:value="changeIntervalType" classPrefix="interval">
     </Types>
   </Layout>
 </template>
@@ -31,9 +25,9 @@ import recordTypeList from "@/constants/recordTypeList"
 })
 export default class Statistics extends Vue {
 
-  recordTypeList:TypeDataSourse[] = recordTypeList
+  recordTypeList: TypeDataSourse[] = recordTypeList
 
-  intervalTypeList:TypeDataSourse[] = intervalTypeList
+  intervalTypeList: TypeDataSourse[] = intervalTypeList
 
   recordTypeSelectedValue = "-"
   intervalTypeSelectedValue = "day"
@@ -49,18 +43,24 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .types-record {
-  background-color: white;
+::v-deep {
+  .types-record {
+    background-color: white;
 
-  >.types-item-record {
-    &.selected {
-      background-color: #c3c3c3;
+    >.types-item-record {
+      &.selected {
+        background-color: #c3c3c3;
 
-      &::after {
-        display: none;
+        &::after {
+          display: none;
+        }
       }
     }
-
+  }
+  .types-interval{
+    >.types-item-interval{
+      height: 48px;
+    }
   }
 }
 </style>
