@@ -1,7 +1,11 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad :amout="record.amonut" @update:value="updateAmount" @submit="recordListSubmit"/>
-    <Types :type="record.type" @update:value="updateTypes"/>
+    <Types :typeDataSourse="recordTypeList" 
+      :initSelectedValue="record.type"
+      @update:value="changeRecordType" 
+      classPrefix="record"
+    ></Types>
     <div class="formItem-wapper">
       <FormItem title="备注" tip="请输入备注" @update:value="updateNotes"/>
     </div>
@@ -16,9 +20,11 @@ import {mixins} from "vue-class-component"
 import NumberPad from "@/components/Money/NumberPad.vue"
 import FormItem from "@/components/FormItem.vue"
 import Tags from "@/components/Money/Tags.vue"
-import Types from "@/components/Money/Types.vue"
+import Types from '@/components/Types.vue';
 
 import TagHelper from "@/mixin/tagHelper";
+
+import recordTypeList from "@/constants/recordTypeList"
 
 @Component({
   components:{
@@ -32,6 +38,8 @@ export default class Money extends mixins(TagHelper){
   get tagList(){
     return this.$store.state.tagList;
   }
+
+  recordTypeList:TypeDataSourse[] = recordTypeList
 
   record:Recordltem = {
     tags:[],
@@ -49,8 +57,8 @@ export default class Money extends mixins(TagHelper){
     this.record.notes = notes;
   }
 
-  updateTypes(type:"-"|"+"){
-    this.record.type = type;
+  changeRecordType(type: string) {
+    this.record.type = type as "-"|"+"
   }
 
   updateAmount(amount:string){
