@@ -30,7 +30,7 @@ import TagHelper from "@/mixin/tagHelper";
 })
 export default class Money extends mixins(TagHelper){
   get tagList(){
-      return this.$store.state.tagList;
+    return this.$store.state.tagList;
   }
 
   record:Recordltem = {

@@ -25,3 +25,9 @@ type recordListStore = {
   fetchRecord:() => Recordltem[];
   saveRecord:() => void;
 }
+
+
+type TypeDataSourse = {
+  text:string,
+  value:string
+}

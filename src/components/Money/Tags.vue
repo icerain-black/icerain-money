@@ -82,6 +82,5 @@ export default class Tags extends Vue {
       padding: 0 4px;
     }
   }
-
 }
 </style>
