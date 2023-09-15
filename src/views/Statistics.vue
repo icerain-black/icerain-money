@@ -9,7 +9,7 @@
     <ol>
       <li v-for="(date, index) in recordResult" :key="index">
         <span class="title">
-          {{ date.title }}
+          {{ transformDate(date.title) }}
         </span>
         <ol>
           <li class="record" v-for="(item, index) in date.record" :key="index">
@@ -26,11 +26,13 @@
 <script lang='ts'>
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import dayjs from "dayjs"
 
 import Types from '@/components/Types.vue';
 
 import intervalTypeList from "@/constants/intetvalTypeList"
 import recordTypeList from "@/constants/recordTypeList"
+
 
 @Component({
   components: {
@@ -63,15 +65,32 @@ export default class Statistics extends Vue {
   intervalTypeSelectedValue = "day"
 
   changeRecordType(type: string) {
-    this.recordTypeSelectedValue = type
+    this.recordTypeSelectedValue = type;
   }
 
   changeIntervalType(type: string) {
-    this.intervalTypeSelectedValue = type
+    this.intervalTypeSelectedValue = type;
   }
 
   tagString(tags: string[]) {
-    return tags.length === 0 ? "无" : tags.join(",")
+    return tags.length === 0 ? "无" : tags.join(",");
+  }
+
+  transformDate(date:string){
+    let now = dayjs();
+    let time = dayjs(date)
+    if (now.isSame(time,"day")) {
+      return "今天"
+    }else if (time.isSame(now.subtract(1,"day"),"day")) {
+      console.log("dd")
+      return "昨天"
+    }else if (time.isSame(now.subtract(2,"day"),"day")) {
+      return "前天"
+    }else if (time.isSame(now,"year")) {
+      return time.format("M月D日")
+    }else{
+      return time.format("YYYY年M月D日")
+    }
   }
 }
 </script>
