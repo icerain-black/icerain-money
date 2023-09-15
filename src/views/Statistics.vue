@@ -7,11 +7,15 @@
       @update:value="changeIntervalType" classPrefix="interval">
     </Types>
     <ol>
-      <li v-for="(date,index) in recordResult" :key="index">
-        {{ date.title }}
+      <li v-for="(date, index) in recordResult" :key="index">
+        <span class="title">
+          {{ date.title }}
+        </span>
         <ol>
-          <li v-for="(item,index) in date.record" :key="index">
-            {{ item.amonut }} - {{ item.createdTime }}
+          <li class="record" v-for="(item, index) in date.record" :key="index">
+            <span>{{ tagString(item.tags) }}</span>
+            <span class="notes">{{ item.notes }}</span>
+            <span>￥{{ item.amonut }}</span>
           </li>
         </ol>
       </li>
@@ -35,16 +39,16 @@ import recordTypeList from "@/constants/recordTypeList"
 })
 export default class Statistics extends Vue {
 
-  get recordList(){
+  get recordList() {
     return this.$store.state.recordItemList as Recordltem[]
   }
 
-  get recordResult(){
-    let {recordList} = this;
-    let hashMap:{[key:string]:{title:string,record:Recordltem[]}} = {};
+  get recordResult() {
+    let { recordList } = this;
+    let hashMap: { [key: string]: { title: string, record: Recordltem[] } } = {};
     for (let i = 0; i < recordList.length; i++) {
-      let [date,time] = recordList[i].createdTime.split("T")
-      hashMap[date] = hashMap[date] || {title:date,record:[]};
+      let [date, time] = recordList[i].createdTime.split("T")
+      hashMap[date] = hashMap[date] || { title: date, record: [] };
       hashMap[date].title = date
       hashMap[date].record.push(recordList[i])
     }
@@ -65,6 +69,10 @@ export default class Statistics extends Vue {
   changeIntervalType(type: string) {
     this.intervalTypeSelectedValue = type
   }
+
+  tagString(tags: string[]) {
+    return tags.length === 0 ? "无" : tags.join(",")
+  }
 }
 </script>
 
@@ -83,10 +91,34 @@ export default class Statistics extends Vue {
       }
     }
   }
-  .types-interval{
-    >.types-item-interval{
+
+  .types-interval {
+    >.types-item-interval {
       height: 48px;
     }
+  }
+}
+
+%item{
+  display: flex;
+  line-height: 24px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.title {
+  @extend %item;
+}
+
+.record {
+  @extend %item;
+  background-color:white;
+
+  .notes{
+    margin-right: auto;
+    margin-left: 16px;  
+    color:#999999;
   }
 }
 </style>
