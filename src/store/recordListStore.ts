@@ -8,7 +8,7 @@ const recordListStore: recordListStore = {
     return data;
   },
   createRecord(newRecord){
-    newRecord.createdTime = new Date(Date.now());
+    newRecord.createdTime = (new Date(Date.now())).toISOString();
     data.push(JSON.parse(JSON.stringify(newRecord)))
     this.saveRecord()
   },

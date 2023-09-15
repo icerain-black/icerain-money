@@ -3,7 +3,7 @@ type Recordltem = {
   notes:string,
   type:"-"|"+",
   amonut:number,
-  createdTime:Date
+  createdTime:string
 }
 
 type tagData = {

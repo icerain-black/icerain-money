@@ -6,6 +6,16 @@
     <Types :typeDataSourse="intervalTypeList" :initSelectedValue="intervalTypeSelectedValue"
       @update:value="changeIntervalType" classPrefix="interval">
     </Types>
+    <ol>
+      <li v-for="(date,index) in recordResult" :key="index">
+        {{ date.title }}
+        <ol>
+          <li v-for="(item,index) in date.record" :key="index">
+            {{ item.amonut }} - {{ item.createdTime }}
+          </li>
+        </ol>
+      </li>
+    </ol>
   </Layout>
 </template>
   
@@ -24,6 +34,22 @@ import recordTypeList from "@/constants/recordTypeList"
   }
 })
 export default class Statistics extends Vue {
+
+  get recordList(){
+    return this.$store.state.recordItemList as Recordltem[]
+  }
+
+  get recordResult(){
+    let {recordList} = this;
+    let hashMap:{[key:string]:{title:string,record:Recordltem[]}} = {};
+    for (let i = 0; i < recordList.length; i++) {
+      let [date,time] = recordList[i].createdTime.split("T")
+      hashMap[date] = hashMap[date] || {title:date,record:[]};
+      hashMap[date].title = date
+      hashMap[date].record.push(recordList[i])
+    }
+    return hashMap
+  }
 
   recordTypeList: TypeDataSourse[] = recordTypeList
 

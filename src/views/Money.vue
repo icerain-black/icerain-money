@@ -46,7 +46,7 @@ export default class Money extends mixins(TagHelper){
     notes:"",
     type:"-",
     amonut:0,
-    createdTime:new Date()
+    createdTime:new Date().toISOString()
   }
 
   updateSelectedTags(tags:string[]){
