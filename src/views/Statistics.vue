@@ -3,16 +3,16 @@
     <Types :typeDataSourse="recordTypeList" :initSelectedValue="recordTypeSelectedValue" @update:value="changeRecordType"
       classPrefix="record">
     </Types>
-    <Types :typeDataSourse="intervalTypeList" :initSelectedValue="intervalTypeSelectedValue"
-      @update:value="changeIntervalType" classPrefix="interval">
-    </Types>
     <ol>
       <li v-for="(date, index) in recordResult" :key="index">
-        <span class="title">
+        <h1 class="title">
           {{ transformDate(date.title) }}
-        </span>
+          <span>
+            ￥{{ date.total }}
+          </span>
+        </h1>
         <ol>
-          <li class="record" v-for="(item, index) in date.record" :key="index">
+          <li class="record" v-for="(item, index) in date.recordItem" :key="index">
             <span>{{ tagString(item.tags) }}</span>
             <span class="notes">{{ item.notes }}</span>
             <span>￥{{ item.amonut }}</span>
@@ -47,13 +47,46 @@ export default class Statistics extends Vue {
 
   get recordResult() {
     let { recordList } = this;
-    let hashMap: { [key: string]: { title: string, record: Recordltem[] } } = {};
-    for (let i = 0; i < recordList.length; i++) {
-      let [date, time] = recordList[i].createdTime.split("T")
-      hashMap[date] = hashMap[date] || { title: date, record: [] };
-      hashMap[date].title = date
-      hashMap[date].record.push(recordList[i])
+    if (recordList.length === 0) {
+      return [];
     }
+
+    let recordList_copy = JSON.parse(JSON.stringify(recordList)) as Recordltem[];
+    recordList_copy = recordList_copy.filter(item => item.type === this.recordTypeSelectedValue)
+
+    recordList_copy.sort((a,b) => {
+      return dayjs(b.createdTime).valueOf() - dayjs(a.createdTime).valueOf()
+    })
+
+    type HashMap = {
+      title:string,
+      recordItem:Recordltem[],
+      total?:number
+    }
+
+    let hashMap:HashMap[] = [{
+      title:dayjs(recordList_copy[0].createdTime).format('YYYY-MM-DD'),
+      recordItem:[recordList_copy[0]]
+    }]
+
+    for (let i = 1; i < recordList_copy.length; i++) {
+      const current = recordList_copy[i];
+      const last = hashMap[hashMap.length - 1];
+      if (dayjs(last.title).isSame(dayjs(current.createdTime),"day")) {
+        last.recordItem.push(current)
+      }else{
+        hashMap.push({
+          title:dayjs(current.createdTime).format("YYYY-MM-DD"),
+          recordItem:[current]
+        })
+      }
+    }
+
+    hashMap.forEach(item => {
+      item.total = item.recordItem.reduce((sum,record) => {
+        return sum += record.amonut
+      },0)
+    })
     return hashMap
   }
 
@@ -82,7 +115,6 @@ export default class Statistics extends Vue {
     if (now.isSame(time,"day")) {
       return "今天"
     }else if (time.isSame(now.subtract(1,"day"),"day")) {
-      console.log("dd")
       return "昨天"
     }else if (time.isSame(now.subtract(2,"day"),"day")) {
       return "前天"
@@ -98,12 +130,11 @@ export default class Statistics extends Vue {
 <style lang="scss" scoped>
 ::v-deep {
   .types-record {
-    background-color: white;
+    background-color: #c3c3c3;
 
     >.types-item-record {
       &.selected {
-        background-color: #c3c3c3;
-
+        background-color: white;
         &::after {
           display: none;
         }
@@ -127,6 +158,7 @@ export default class Statistics extends Vue {
 }
 
 .title {
+  font-size: 20px;
   @extend %item;
 }
 
