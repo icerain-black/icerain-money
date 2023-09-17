@@ -38,6 +38,7 @@ export default class EditLable extends Vue {
     const tag = tagList.filter(item => item.id === this.$route.params.id)[0];
     if (tag.name) {
       this.tag = tag
+      this.tagName = this.tag.name
     }else{
       this.$router.replace({
         name: "404"
