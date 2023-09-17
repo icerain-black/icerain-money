@@ -7,7 +7,7 @@
       classPrefix="record"
     ></Types>
     <div class="formItem-wapper">
-      <FormItem title="备注" tip="请输入备注" @update:value="updateNotes"/>
+      <FormItem title="备注" :value="record.notes" tip="请输入备注" @update:value="updateNotes"/>
     </div>
     <Tags :tagList="tagList" @addTag="addTag" @update:value="updateSelectedTags"/>
   </Layout>
@@ -66,7 +66,8 @@ export default class Money extends mixins(TagHelper){
   }
 
   recordListSubmit(){
-    this.$store.commit("createRecord",this.record)
+    this.$store.commit("createRecord",this.record);
+    this.record.notes = "";
   }
 
 }

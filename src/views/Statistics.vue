@@ -3,7 +3,7 @@
     <Types :typeDataSourse="recordTypeList" :initSelectedValue="recordTypeSelectedValue" @update:value="changeRecordType"
       classPrefix="record">
     </Types>
-    <ol>
+    <ol v-if="recordResult.length !== 0">
       <li v-for="(date, index) in recordResult" :key="index">
         <h1 class="title">
           {{ transformDate(date.title) }}
@@ -20,6 +20,9 @@
         </ol>
       </li>
     </ol>
+    <div v-else class="no-result">
+      无账本记录
+    </div>
   </Layout>
 </template>
   
@@ -30,7 +33,6 @@ import dayjs from "dayjs"
 
 import Types from '@/components/Types.vue';
 
-import intervalTypeList from "@/constants/intetvalTypeList"
 import recordTypeList from "@/constants/recordTypeList"
 
 
@@ -91,17 +93,10 @@ export default class Statistics extends Vue {
 
   recordTypeList: TypeDataSourse[] = recordTypeList
 
-  intervalTypeList: TypeDataSourse[] = intervalTypeList
-
   recordTypeSelectedValue = "-"
-  intervalTypeSelectedValue = "day"
 
   changeRecordType(type: string) {
     this.recordTypeSelectedValue = type;
-  }
-
-  changeIntervalType(type: string) {
-    this.intervalTypeSelectedValue = type;
   }
 
   tagString(tags: string[]) {
@@ -171,5 +166,12 @@ export default class Statistics extends Vue {
     margin-left: 16px;
     color: #999999;
   }
+}
+
+.no-result{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
 }
 </style>
