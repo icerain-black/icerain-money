@@ -55,7 +55,6 @@ export default class Labels extends mixins(TagHelper){
 .createTag-wapper{
   text-align: center;
   padding: 16px;
-  margin-top: 44 - 16px;
-  
+  margin-top: 100 - 16px;
 }
 </style>

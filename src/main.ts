@@ -18,3 +18,12 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+window.onload = function () {
+  setTimeout(() => {
+    window.scrollTo({
+      left:0,
+      top:100
+    })
+  }, 0);    
+}
