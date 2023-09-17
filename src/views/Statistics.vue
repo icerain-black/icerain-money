@@ -47,45 +47,44 @@ export default class Statistics extends Vue {
 
   get recordResult() {
     let { recordList } = this;
-    if (recordList.length === 0) {
-      return [];
+
+    let newList = JSON.parse(JSON.stringify(recordList)) as Recordltem[];
+    newList = newList.filter(item => item.type === this.recordTypeSelectedValue)
+    if (newList.length === 0) {
+      return []
     }
-
-    let recordList_copy = JSON.parse(JSON.stringify(recordList)) as Recordltem[];
-    recordList_copy = recordList_copy.filter(item => item.type === this.recordTypeSelectedValue)
-
-    recordList_copy.sort((a,b) => {
+    newList.sort((a, b) => {
       return dayjs(b.createdTime).valueOf() - dayjs(a.createdTime).valueOf()
     })
 
     type HashMap = {
-      title:string,
-      recordItem:Recordltem[],
-      total?:number
+      title: string,
+      recordItem: Recordltem[],
+      total?: number
     }
 
-    let hashMap:HashMap[] = [{
-      title:dayjs(recordList_copy[0].createdTime).format('YYYY-MM-DD'),
-      recordItem:[recordList_copy[0]]
+    let hashMap: HashMap[] = [{
+      title: dayjs(newList[0].createdTime).format('YYYY-MM-DD'),
+      recordItem: [newList[0]]
     }]
 
-    for (let i = 1; i < recordList_copy.length; i++) {
-      const current = recordList_copy[i];
+    for (let i = 1; i < newList.length; i++) {
+      const current = newList[i];
       const last = hashMap[hashMap.length - 1];
-      if (dayjs(last.title).isSame(dayjs(current.createdTime),"day")) {
+      if (dayjs(last.title).isSame(dayjs(current.createdTime), "day")) {
         last.recordItem.push(current)
-      }else{
+      } else {
         hashMap.push({
-          title:dayjs(current.createdTime).format("YYYY-MM-DD"),
-          recordItem:[current]
+          title: dayjs(current.createdTime).format("YYYY-MM-DD"),
+          recordItem: [current]
         })
       }
     }
 
     hashMap.forEach(item => {
-      item.total = item.recordItem.reduce((sum,record) => {
+      item.total = item.recordItem.reduce((sum, record) => {
         return sum += record.amonut
-      },0)
+      }, 0)
     })
     return hashMap
   }
@@ -109,18 +108,18 @@ export default class Statistics extends Vue {
     return tags.length === 0 ? "无" : tags.join(",");
   }
 
-  transformDate(date:string){
+  transformDate(date: string) {
     let now = dayjs();
     let time = dayjs(date)
-    if (now.isSame(time,"day")) {
+    if (now.isSame(time, "day")) {
       return "今天"
-    }else if (time.isSame(now.subtract(1,"day"),"day")) {
+    } else if (time.isSame(now.subtract(1, "day"), "day")) {
       return "昨天"
-    }else if (time.isSame(now.subtract(2,"day"),"day")) {
+    } else if (time.isSame(now.subtract(2, "day"), "day")) {
       return "前天"
-    }else if (time.isSame(now,"year")) {
+    } else if (time.isSame(now, "year")) {
       return time.format("M月D日")
-    }else{
+    } else {
       return time.format("YYYY年M月D日")
     }
   }
@@ -135,6 +134,7 @@ export default class Statistics extends Vue {
     >.types-item-record {
       &.selected {
         background-color: white;
+
         &::after {
           display: none;
         }
@@ -149,7 +149,7 @@ export default class Statistics extends Vue {
   }
 }
 
-%item{
+%item {
   display: flex;
   line-height: 24px;
   justify-content: space-between;
@@ -164,12 +164,12 @@ export default class Statistics extends Vue {
 
 .record {
   @extend %item;
-  background-color:white;
+  background-color: white;
 
-  .notes{
+  .notes {
     margin-right: auto;
-    margin-left: 16px;  
-    color:#999999;
+    margin-left: 16px;
+    color: #999999;
   }
 }
 </style>
