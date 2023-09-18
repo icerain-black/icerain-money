@@ -36,7 +36,7 @@ import recordTypeList from "@/constants/recordTypeList"
 })
 export default class Money extends mixins(TagHelper){
   get tagList(){
-    return this.$store.state.tagList;
+    return this.$store.state.tagListStore.tagList;
   }
 
   recordTypeList:TypeDataSourse[] = recordTypeList

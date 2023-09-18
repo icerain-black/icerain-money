@@ -1,22 +1,26 @@
-const itemKey = "recordList"
+import store from "@/store"
 
-let data:Recordltem[] = [];
-
-const recordListStore: recordListStore = {
-  fetchRecord(){
-    data = JSON.parse(window.localStorage.getItem(itemKey) || "[]") as Recordltem[]
-    return data;
-  },
-  createRecord(newRecord){
-    newRecord.createdTime = (new Date(Date.now())).toISOString();
-    data.push(JSON.parse(JSON.stringify(newRecord)))
-    this.saveRecord()
-  },
-  saveRecord(){
-    window.localStorage.setItem(itemKey,JSON.stringify(data));
-  }
+type State = {
+  recordItemList:Recordltem[]
 }
 
-recordListStore.fetchRecord()
+const recordListStore = {
+  state:{
+    recordItemList:[],
+  } as State,
+  mutations:{
+    fetchRecord(state:State){
+      state.recordItemList = JSON.parse(window.localStorage.getItem("recordList") || "[]") as Recordltem[]
+    },
+    createRecord(state:State,newRecord:Recordltem){
+      newRecord.createdTime = (new Date(Date.now())).toISOString();
+      state.recordItemList.push(JSON.parse(JSON.stringify(newRecord)))
+      store.commit("saveRecord");
+    },
+    saveRecord(state:State){
+      window.localStorage.setItem("recordList",JSON.stringify(state.recordItemList));
+    },
+  }
+}
 
 export default recordListStore;

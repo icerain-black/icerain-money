@@ -20,6 +20,11 @@ body {
   font-family: $font-hei;
   font-size: 16px;
   background-color: #f5f5f5;
+  
+  @media (min-width: 500px) {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 }
 
 </style>

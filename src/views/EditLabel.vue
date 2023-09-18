@@ -33,7 +33,7 @@ export default class EditLable extends Vue {
   tagName = this.tag?.name;
 
   created() {
-    const tagList:tagData[] = this.$store.state.tagList;
+    const tagList:tagData[] = this.$store.state.tagListStore.tagList;
 
     const tag = tagList.filter(item => item.id === this.$route.params.id)[0];
     if (tag.name) {

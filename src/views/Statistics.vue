@@ -44,7 +44,7 @@ import recordTypeList from "@/constants/recordTypeList"
 export default class Statistics extends Vue {
 
   get recordList() {
-    return this.$store.state.recordItemList as Recordltem[]
+    return this.$store.state.recordListStore.recordItemList as Recordltem[]
   }
 
   get recordResult() {
