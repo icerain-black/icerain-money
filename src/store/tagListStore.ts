@@ -44,6 +44,9 @@ const tagListStore = {
     },
 
     updateTag(state:State, updateTagParams:updateTagParams) {
+      if(state.tagList.some(item => item.name === updateTagParams.tagName)){
+        return;
+      }
       let index = state.tagList.findIndex(item => item.id === updateTagParams.id);
       if (index >= 0) {
         state.tagList[index].name = updateTagParams.tagName;
