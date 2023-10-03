@@ -124,11 +124,11 @@ export default class Statistics extends Vue {
 <style lang="scss" scoped>
 ::v-deep {
   .types-record {
-    background-color: #c3c3c3;
+    background-color: #ffffff;
 
     >.types-item-record {
       &.selected {
-        background-color: white;
+        background-color: #c5bcff;
 
         &::after {
           display: none;
@@ -154,17 +154,18 @@ export default class Statistics extends Vue {
 
 .title {
   font-size: 20px;
+  background-color: #c5bcff;
   @extend %item;
 }
 
 .record {
   @extend %item;
-  background-color: white;
+  background-color: #dcd7ff;
 
   .notes {
     margin-right: auto;
     margin-left: 16px;
-    color: #999999;
+    color: #544747;
   }
 }
 

@@ -40,7 +40,7 @@ export default class Types extends Vue {
 .types {
   display: flex;
   font-size: 24px;
-  background-color: #c4c4c4;
+  background-color: #e1dbff;
 
   >li {
     display: flex;
@@ -59,7 +59,7 @@ export default class Types extends Vue {
       bottom: 0;
       left: 0;
       height: 4px;
-      background-color: #333;
+      background-color: #6640ff;
     }
   }
 }

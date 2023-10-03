@@ -37,7 +37,7 @@ export default class FormItem extends Vue {
       margin-left: 16px;
       background-color: transparent;
       border: none;
-      color: #999999;
+      color: #544747;
       flex-grow: 1;
       line-height: 40px;
       padding-right: 16px;

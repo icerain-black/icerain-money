@@ -60,12 +60,12 @@ export default class Tags extends Vue {
       height: $h;
       border-radius: math.div($h, 2);
       line-height: $h;
-      background-color: #d9d9d9;
+      background-color: #d4cbe9;
       padding: 0 16px;
       margin-right: 16px;
       margin-top: 6px;
       &.selected{
-        background-color: red;
+        background-color: #8e60ff;
         color: white;
       }
     }

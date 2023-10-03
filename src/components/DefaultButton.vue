@@ -18,7 +18,7 @@ export default class Labels extends Vue {
   
 <style lang="scss" scoped>
 button{
-  background-color: #767676;
+  background-color: #7478f7;
   color: white;
   border-radius: 4px;
   border: none;

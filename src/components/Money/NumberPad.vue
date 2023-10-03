@@ -114,7 +114,7 @@ export default class NumberPad extends Vue {
       &.OK {
         height: 64 * 2px;
         float: right;
-        background-color: darken($color: #f2f2f2, $amount: 5% * 6);
+        background-color: #aba2f1;
       }
 
       &.zero {
@@ -122,34 +122,34 @@ export default class NumberPad extends Vue {
       }
 
       &:nth-of-type(1) {
-        background-color: #f2f2f2;
+        background-color: #ffffff;
       }
 
       &:nth-of-type(2),
       &:nth-of-type(5) {
-        background-color: darken($color: #f2f2f2, $amount: 5% * 1);
+        background-color: #f8f0fd;
       }
 
       &:nth-of-type(3),
       &:nth-of-type(6),
       &:nth-of-type(9) {
-        background-color: darken($color: #f2f2f2, $amount: 5% * 2);
+        background-color: #e4dafd;
       }
 
       &:nth-of-type(4),
       &:nth-of-type(7),
       &:nth-of-type(10) {
-        background-color: darken($color: #f2f2f2, $amount: 5% * 3);
+        background-color: #d3ceff;
       }
 
       &:nth-of-type(8),
       &:nth-of-type(11),
       &:nth-of-type(13) {
-        background-color: darken($color: #f2f2f2, $amount: 5% * 4);
+        background-color: #d0c8fb;
       }
 
       &:nth-of-type(14) {
-        background-color: darken($color: #f2f2f2, $amount: 5% * 5);
+        background-color: #b2a7eb;
       }
     }
   }
